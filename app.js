@@ -274,7 +274,7 @@ modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
 btnNew.addEventListener('click', openCreate);
 btnLogout.addEventListener('click', ()=>{
   localStorage.removeItem('token'); localStorage.removeItem('authToken');
-  window.location.href = '/login';
+  window.location.href = '/login.html';
 });
 
 // initial load
