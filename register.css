@@ -1,0 +1,117 @@
+/* Nền & bong bóng */
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e1e2f, #232344);
+    overflow: hidden;
+  }
+  
+  .background {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+  
+  .bubbles span {
+    position: absolute;
+    bottom: -50px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    animation: bubble 12s infinite ease-in;
+  }
+  
+  .bubbles span:nth-child(1) { left: 10%; width: 40px; height: 40px; animation-delay: 0s; }
+  .bubbles span:nth-child(2) { left: 20%; width: 25px; height: 25px; animation-delay: 2s; }
+  .bubbles span:nth-child(3) { left: 35%; width: 50px; height: 50px; animation-delay: 4s; }
+  .bubbles span:nth-child(4) { left: 50%; width: 20px; height: 20px; animation-delay: 6s; }
+  .bubbles span:nth-child(5) { left: 65%; width: 35px; height: 35px; animation-delay: 1s; }
+  .bubbles span:nth-child(6) { left: 75%; width: 45px; height: 45px; animation-delay: 3s; }
+  .bubbles span:nth-child(7) { left: 85%; width: 30px; height: 30px; animation-delay: 5s; }
+  .bubbles span:nth-child(8) { left: 95%; width: 40px; height: 40px; animation-delay: 7s; }
+  .bubbles span:nth-child(9) { left: 5%; width: 30px; height: 30px; animation-delay: 9s; }
+  .bubbles span:nth-child(10){ left: 55%; width: 20px; height: 20px; animation-delay: 11s; }
+  
+  @keyframes bubble {
+    0% { transform: translateY(0) scale(1); opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+  }
+  
+  /* Form */
+  .register-container {
+    position: relative;
+    z-index: 1;
+    background: rgba(73, 33, 218, 0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    width: 350px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  }
+  
+  .register-container h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    display: block;
+    color: #ddd;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    outline: none;
+  }
+  
+  .form-group input::placeholder {
+    color: #bbb;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 10px;
+    background: #4f46e5;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .btn:hover {
+    background: #3730a3;
+  }
+  
+  .switch {
+    text-align: center;
+    margin-top: 1rem;
+    color: #ccc;
+  }
+  
+  .switch a {
+    color: #4f9cff;
+    text-decoration: none;
+  }
+  
+  .switch a:hover {
+    text-decoration: underline;
+  }
+  
