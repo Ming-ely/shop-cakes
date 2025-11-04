@@ -1,113 +1,56 @@
-<!doctype htm\>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Quản lý Bánh Ngọt — Tết 2025</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý bánh ngọt</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- decorative lanterns / header -->
-  <header class="topbar">
+  <div id="falling"></div>
+  <div class="topbar">
     <div class="top-inner">
       <div class="brand">
-        <div class="logo">🎂</div>
-        <div>
-          <h1>Ming's Bakery</h1>
-          <p class="subtitle">Quản lý bánh - Chúc mừng năm mới ✨</p>
-        </div>
+        <div class="logo">🍰</div>
+        <h1>Quản Lý Bánh Ngọt</h1>
       </div>
-
       <div class="actions">
-        <input id="search" placeholder="🔎 Tìm theo tên, mô tả, danh mục..." />
-        <select id="categoryFilter">
-          <option value="">— Tất cả danh mục —</option>
-        </select>
+        <input type="text" id="search" placeholder="Tìm kiếm bánh...">
+        <select id="categoryFilter"></select>
         <select id="perPage">
-          <option value="8">8 / trang</option>
-          <option value="12">12 / trang</option>
-          <option value="20">20 / trang</option>
+          <option value="6">6 / trang</option>
+          <option value="12" selected>12 / trang</option>
+          <option value="24">24 / trang</option>
         </select>
-        <button id="btnNew" class="btn primary">➕ Tạo bánh mới</button>
-        <button id="btnLogout" class="btn ghost">⎋ Đăng xuất</button>
+        <button class="btn ghost" id="btnMyCakes">Bánh của tôi 🍩</button>
+        <button class="btn primary" id="btnNew">+ Thêm bánh</button>
+        <button class="btn ghost" id="btnLogout">Đăng xuất</button>
       </div>
-    </div>
-  </header>
-
-  <!-- falling decoration (mai flowers) -->
-  <div id="falling"></div>
-
-  <main class="container">
-    <section class="panel">
-      <div class="panel-head">
-        <h2>Danh sách bánh</h2>
-        <div class="panel-controls">
-          <span id="stats" class="muted"></span>
-        </div>
-      </div>
-
-      <div id="alert" class="alert" hidden></div>
-
-      <div id="grid" class="grid"></div>
-
-      <div class="pager">
-        <button id="prev" class="btn">← Trước</button>
-        <span id="pageInfo"></span>
-        <button id="next" class="btn">Sau →</button>
-      </div>
-    </section>
-  </main>
-
-  <!-- modal: create / edit -->
-  <div id="modal" class="modal" aria-hidden="true">
-    <div class="dialog">
-      <header class="dialog-head">
-        <h3 id="modalTitle">Tạo bánh</h3>
-        <button id="closeModal" class="close">✕</button>
-      </header>
-
-      <form id="form" class="dialog-body">
-        <input type="hidden" id="cakeId" />
-        <label>Tên bánh
-          <input id="name" required />
-        </label>
-
-        <label>Link ảnh (URL)
-          <input id="image" placeholder="https://..." />
-        </label>
-
-        <div class="row">
-          <label>Giá (VNĐ)
-            <input id="price" type="number" min="0" />
-          </label>
-          <label>Số lượng
-            <input id="stock" type="number" min="0" />
-          </label>
-        </div>
-
-        <label>Danh mục
-          <input id="category" placeholder="Ví dụ: Bánh sinh nhật" />
-        </label>
-
-        <label>Mô tả
-          <textarea id="description" rows="4"></textarea>
-        </label>
-
-        <div class="form-actions">
-          <button type="submit" class="btn primary">Lưu</button>
-          <button type="button" id="cancel" class="btn ghost">Hủy</button>
-        </div>
-      </form>
     </div>
   </div>
 
+  <main class="container">
+    <div id="alert" class="alert" hidden></div>
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Danh sách bánh</h2>
+        <div class="muted" id="stats"></div>
+      </div>
+      <div id="grid" class="grid"></div>
+      <div class="pager">
+        <button id="prev" class="btn small ghost">← Trước</button>
+        <span id="pageInfo"></span>
+        <button id="next" class="btn small ghost">Sau →</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Template card -->
   <template id="cardTpl">
     <div class="card">
-      <div class="card-media">
-        <img class="thumb" alt="cake" />
-      </div>
+      <div class="card-media"><img class="thumb" src="" alt="cake"></div>
       <div class="card-body">
-        <h4 class="title"></h4>
+        <h3 class="title"></h3>
         <div class="meta">
           <span class="cat"></span>
           <span class="price"></span>
@@ -115,12 +58,47 @@
         <p class="desc"></p>
       </div>
       <div class="card-actions">
-        <button class="btn small edit">✏️ Sửa</button>
-        <button class="btn small delete">🗑️ Xóa</button>
+        <button class="btn small edit">Sửa</button>
+        <button class="btn small delete">Xóa</button>
       </div>
     </div>
   </template>
 
-  <script src="app.js" defer></script>
+  <!-- Modal -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="dialog">
+      <div class="dialog-head">
+        <h2 id="modalTitle">Tạo bánh mới</h2>
+        <button id="closeModal" class="close">✕</button>
+      </div>
+      <form id="form" class="dialog-body">
+        <input type="hidden" id="cakeId">
+        <label>Tên bánh</label>
+        <input type="text" id="name" required>
+        <label>Link ảnh (URL)</label>
+        <input type="text" id="image" placeholder="https://...">
+        <div class="row">
+          <div style="flex:1">
+            <label>Giá (VNĐ)</label>
+            <input type="number" id="price">
+          </div>
+          <div style="flex:1">
+            <label>Số lượng</label>
+            <input type="number" id="stock">
+          </div>
+        </div>
+        <label>Danh mục</label>
+        <input type="text" id="category" placeholder="Bánh kem, Bánh Tết...">
+        <label>Mô tả</label>
+        <textarea id="description" rows="3"></textarea>
+        <div class="form-actions">
+          <button type="submit" class="btn">Lưu</button>
+          <button type="button" class="btn" id="cancel">Hủy</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
